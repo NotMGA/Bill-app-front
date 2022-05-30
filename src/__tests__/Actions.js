@@ -26,9 +26,6 @@ describe('Given I am connected as an Employee', () => {
 })
 
 
-// modif Freyre Maximee
-
-// download test
 
 describe('Given I am connected as an Employee', () => {
   describe('When I am on Bills page and there are bills', () => {

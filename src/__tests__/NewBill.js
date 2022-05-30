@@ -8,13 +8,11 @@ import NewBill from "../containers/NewBill.js"
 import userEvent  from "@testing-library/user-event"
 import '@testing-library/jest-dom/extend-expect'
 
-//__________________________________DEBUT  IMPORT SUPPLEMENTAIRE ____________________________________________
 import { fireEvent} from "@testing-library/dom"
 import store from "../__mocks__/store";
 import { localStorageMock } from "../__mocks__/localStorage.js"
 import {  ROUTES,ROUTES_PATH } from "../constants/routes.js"
 import Router from "../app/Router.js"
-//___________________________________ FIN  IMPORT SUPPLEMENTAIRE ___________________________________________
 
 
 describe("Given I am connected as an employee", () => {
@@ -40,46 +38,15 @@ describe("Given I am connected as an employee", () => {
     })
 
 
-    test("Then ...", () => {
+    test("Then I am on the right page", () => {
       const html = NewBillUI()
       document.body.innerHTML = html
-      //to-do write assertion
       console.log(NewBill)
-     // expect(NewBill).toEqual(html)
-     //fdfdfdfd
     expect(NewBill).toBeTruthy()
     })
 
-    describe("When I click on envoyer",()=>{
-      test("I should be send on the dashboard",()=>{
-        const handleSubmit= jest.fn(NewBill.handleSubmit)
-        const send = screen.getByTestId('test_send')
-        send.addEventListener('click',handleSubmit)
-        userEvent.click(send)
-        expect(handleSubmit).toHaveBeenCalled()
-        // expect(screen.getByText('Mes notes de frais')).toBeTruthy()
-      })
-    })
-    describe("When i click on choisir un fichier",()=>{
-      test("Then the file is send ",()=>{
-        const handleChangeFile = jest.fn(NewBill.handleChangeFile)
-        const file = screen.getByTestId(`file`)
-        file.addEventListener("click", handleChangeFile)
-        userEvent.click(file)
-        expect(handleChangeFile).toHaveBeenCalled()
-        
-      })
-    })
 
-    describe("fghfghfg",()=>{
-      test("dfgdfgdf",()=>{
-        const typedep = screen.getByTestId('expense-type')
-        expect(typedep).toBeRequired()
-        
-      })
-    })
 
-    //__________________________________ DEBUT  TEST SUPPLEMENTAIRE _____________________________________________
 
  describe("When the image format is accepted", ()=>{
       test('Then the change file fuction is called', ()=>{
@@ -202,7 +169,6 @@ describe("Given I am connected as an employee", () => {
       await store.bills(myNewBill)
       expect(SpyOn).toHaveBeenCalled()
     })
-    //_________________________________________ FIN  TEST SUPPLEMENTAIRE ______________________________________
 
 
   })

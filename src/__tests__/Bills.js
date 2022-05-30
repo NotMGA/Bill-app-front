@@ -15,69 +15,6 @@ import store from "../__mocks__/store";
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
-     /*
-    test("Then bill icon in vertical layout should be highlighted", async () => {
-
-      Object.defineProperty(window, 'localStorage', { value: localStorageMock })
-      window.localStorage.setItem('user', JSON.stringify({
-        type: 'Employee'
-      }))
-      const root = document.createElement("div")
-      root.setAttribute("id", "root")
-      document.body.append(root)
-      router()
-      window.onNavigate(ROUTES_PATH.Bills)
-      await waitFor(() => screen.getByTestId('icon-window'))
-      const windowIcon = screen.getByTestId('icon-window')
-      //to-do write expect expression
-      //M.F
-      expect (windowIcon.classList.contains('active-icon')).toBeTruthy();
-      //M.F end
-
-    })
-    test("Then bills should be ordered from earliest to latest", () => {
-      document.body.innerHTML = BillsUI({ data: bills })
-      const dates = screen.getAllByText(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/i).map(a => a.innerHTML)
-      const antiChrono = (a, b) => ((a < b) ? 1 : -1)
-      const datesSorted = [...dates].sort(antiChrono)
-      expect(dates).toEqual(datesSorted)
-    })
-    //M.F
-   
-    describe("When i click on the eaye",()=>{
-      test("It should open a modal ",()=>{
-      const handleClickIconEye= jest.fn(bills.handleClickIconEye)
-      const eaye = screen.getAllByTestId('icon-eye')
-      console.log(eaye[1])
-      // const handleClickIconEye = jest.fn((e) => bills.handleRefuseSubmit(e, bills[0]))
-      eaye[1].addEventListener('click', handleClickIconEye(eaye[1]))
-      userEvent.click(eaye[1])
-      expect(handleClickIconEye).toHaveBeenCalled()
-      expect(screen.getByText('Justificatif')).toBeTruthy()
-
-      })
-    })
-*/
-    describe("dfsfds",()=>{
-      test("dfsdfsd",()=>{
-       const html = BillsUI({ data : Bills , loading : true})
-       document.body.innerHTML = html;
-       expect(screen.queryByTestId("loading_test")).toBeTruthy()
-
-      }) 
-    })
-
-    describe("dfsfds",()=>{
-      test("dfsdfsd",()=>{
-        const html = BillsUI({ data : []})
-        document.body.innerHTML = html;
-        expect(screen.getByText("Mes notes de frais")).toBeTruthy()
-        expect(screen.getByTestId("btn-new-bill")).toBeTruthy()
-      })
-    })
-    // end M.F
-
-    //__________________________________ DEBUT  TEST SUPPLEMENTAIRE _______________________________________
 
  test("Then bill icon in vertical layout should be highlighted", () => {
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
@@ -171,6 +108,30 @@ describe("Given I am connected as an employee", () => {
 
     })
 
+    test('Should download file when i click on icon download', () => {
+      $.fn.modal = jest.fn()
+      const html = BillsUI({ data: bills })
+      document.body.innerHTML = html
+      Object.defineProperty(window, "localStorage", { value: { getItem: jest.fn(() => null), setItem: jest.fn(() => null) } },
+      )
+
+      const onNavigate = (pathname) => {
+        document.body.innerHTML = ROUTES({ data: [], pathname });
+      };
+      const firebase = jest.fn()
+      const bill = new Bills({ document, onNavigate, firebase, localStorage: window.localStorage })
+
+      const handleClickIconDownload = jest.fn(bill.handleClickIconDownload);
+
+      const iconsDownload = screen.getAllByTestId(`icon-download`)
+      const firstDOwnload = iconsDownload[0]
+      firstDOwnload.addEventListener("click", handleClickIconDownload(firstDOwnload))
+      userEvent.click(firstDOwnload)
+
+      expect(handleClickIconDownload).toHaveBeenCalled()
+
+    })
+
     test('Should display the new bill button', () => {
 
       const html = BillsUI({ data: [] })
@@ -215,4 +176,3 @@ describe("Given I am a user connected as Employee", () => {
 });
 
 
-  //_________________________________ FIN  TEST SUPPLEMENTAIRE ________________________________________
