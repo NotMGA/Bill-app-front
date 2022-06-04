@@ -27,8 +27,19 @@ const rows = (data) => {
   
     return dateA === dateB ? 0 : dateA < dateB ? 1 : -1 ;
   })
+  //Suppresion de l'affichage des ticket qui bug 
+  for(var i=0;i<data.length ;i++){
+  if(data[i].name === null){
+    data.splice(i,1)
+    i--;
+    
+  }
+  
 }
-  return data && data.length ? data.map((bill) => row(bill)).join("") : ""
+  
+}
+
+  return data && data.length ? data.map((bills) => row(bills)).join("") : ""
 }
 
 export default ({ data: bills, loading, error }) => {

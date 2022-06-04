@@ -148,23 +148,9 @@ describe("Given I am connected as an employee", () => {
     })
     test('The i havec posted a bill from my MockedApi', async () => {
       //Récupéré dans le mock storage
-      const myNewBill = [
-        {
-          "id": "47qAXb6fIm2zOKkLzMro",
-          "vat": "80",
-          "fileUrl": "https://test.storage.tld/v0/b/billable-677b6.a…f-1.jpg?alt=media&token=c1640e12-a24b-4b11-ae52-529112e9602a",
-          "status": "pending",
-          "type": "Hôtel et logement",
-          "commentary": "séminaire billed",
-          "name": "encore",
-          "fileName": "preview-facture-free-201801-pdf-1.jpg",
-          "date": "2004-04-04",
-          "amount": 400,
-          "commentAdmin": "ok",
-          "email": "a@a",
-          "pct": 20
-        }
-      ]
+      
+      const storedbills = store.bills()
+      const myNewBill = storedbills[0]
       const SpyOn = jest.spyOn(store, 'bills')
       await store.bills(myNewBill)
       expect(SpyOn).toHaveBeenCalled()
